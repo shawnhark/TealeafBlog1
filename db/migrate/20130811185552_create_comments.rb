@@ -3,7 +3,8 @@ class CreateComments < ActiveRecord::Migration
     create_table :comments do |t|
     	t.text :body
     	t.timestamps
-    	t.belongs_to :user_id, :post_id
+    	t.belongs_to :user
+    	t.belongs_to :post
     end
   end
 end
