@@ -4,7 +4,6 @@ module ApplicationHelper
 	end
 
 	def display_datetime(dt)
-		dt.strftime("%b %d, %Y at %1:%M%P %Z")
-		#Aug 10, 2013 at 1:23pm UTC
+		dt.strftime("%b %d, %Y %1:%M%P %Z")
 	end
 end
