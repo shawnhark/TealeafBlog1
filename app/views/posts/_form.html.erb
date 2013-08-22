@@ -1,11 +1,11 @@
-<% = render 'shared/errors', obj: @post %>
+<%= render 'shared/errors', obj: @post %>
 
 <%= form_for @post do |f| %>
 	<%= f.label :title %>
 	<%= f.text_field :title %>
 	<br/>
-	<%= f.label :utl %>
+	<%= f.label :url %>
 	<%= f.text_field :url %>
 	<br/>
-	<%= f.submit @post.new_record? ? "Create Post" : "Update Post", class: 'btn' %>
+	<%= f.submit @post.new_record? ? "Create Post" : "Update Post", class: 'btn btn-info' %>
 <% end %>

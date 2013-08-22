@@ -1,31 +1,21 @@
 class PostsController < ApplicationController
-before_action :set_post, only: [:show, :update, :destroy] 
+	before_action :set_post, only: [:show, :update, :edit] 
+	before_action :require_user, only: [:new, :create, :edit, :update]
   def index
   	@posts = Post.all
   end
 
   def show
-  	@post = Post.find(params[:id])
+
+  	@comment = Comment.new
   end
 
   def new
-  	@posts = Post.new
+  	@post = Post.new
   end
 
   def create
-#  	@post = Post.new(post_params.require(:post).permit!)
-
-#	 	respond_to do |format|
-#			if @post.save
-#	  		format.html { redirect_to @post, notice: 'Post was successfully created.'}
-#	  		format.json { render action: 'show', status: :created, location: @post }
-#	  	else
-#	  		format.html { redner action: 'new'}
-#				format.json { render json: @post.errors, status: :unprocessable_entity }
-#			end
-#		end
-
-  @post = Post.new(params.require(:post).permit!)
+  	@post = Post.new(post_params)
 
 		if @post.save
 			flash[:notice] = "You created a new post!"
@@ -36,27 +26,16 @@ before_action :set_post, only: [:show, :update, :destroy]
 	end
   	
  	def edit
-	  @post = Post.find(params[:id])
+
 	end
 
 	def update
-#		respond_to do |format|
-#			if @post.update(post_params)
-#				flash[:notice] = "Post was successfully updated."
-#				redirect_to posts_path(@post)
-#			else
-#				render :edit
-#			end
-#		end
-	  @post = Post.find(params[:id])
-	 
-		if @post.update(params[:post].permit(:title, :text))
+		if @post.update(post_params)
 	  	flash[:notice] = "Post was successfully updated."
-	    redirect_to post_path@post
+	    redirect_to post_path(@post)
 	  else
 	    render :edit
 	  end
-		
 	end
 
 	def destroy
@@ -65,9 +44,6 @@ before_action :set_post, only: [:show, :update, :destroy]
 			format.html { redirect_to posts_url }
 			format.json { head :no_content }
 		end 
-			#	  @post = Post.find(params[:id])
-			#	  @post.destroy
-			#	  redirect_to posts_path
 	end
 
 	private
@@ -78,6 +54,5 @@ before_action :set_post, only: [:show, :update, :destroy]
 	  def post_params
 	    params.require(:post).permit(:title, :url)
 	  end
-	end
 
-#end
+end

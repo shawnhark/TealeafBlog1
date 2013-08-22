@@ -1,10 +1,10 @@
 <h5>Create Category</h5>
 
-<% = render 'shared/errors', obj: @category %>
+<%= render 'shared/errors', obj: @category %>
 
 <%= form_for @category do |f| %>
 	<%= f.label :name %>
 	<%= f.text_field :name %>
 	<br/>
-<%= f.submit "Create Category" %>
+	<%= f.submit "Create Category" %>
 <% end %>
