@@ -1,23 +1,23 @@
-<h3>Looking at post:</h3>
-Title:<%= @post.title %>
-<br>
-URL: <%= @post.url %>
-</br>
+<h4>Looking at post: <%= @post.title %></h4>
+<p>URL: <%= @post.url %></p>
 <p>Description: <%= @post.description %></p>
 
 <p>
-	<%= render 'shared/errors', obj: @comment %>
-	<% form_for [@post, @comment] do |f| %>
-		<%= f.text_area :body %>
-		</br>
-		<%= f.submit "Create comment", class: 'btn btn-primary' %>
+	<%= if logged_in? %>
+		<%= render 'shared/errors', obj: @comment %>
+		<%= form_for [@post, @comment] do |f| %>
+			<%= f.text_area :body %>
+			</br>
+			<%= f.submit "Create comment", class: 'btn btn-primary' %>
+		<% end %>
 	<% end %>
 
 	<h5>Comments:</h5>
 	<ol>
 		<% @post.comments.each do |comment| %>
-			<li><%= comment.body %></li>
+			<li><%= comment.body %> by <%= link_to comment.creator.username %> </li>
 	<% end %>
-</ol>
+	</ol>
+
 
 </p>
