@@ -3,7 +3,7 @@
 <p>Description: <%= @post.description %></p>
 
 <p>
-	<%= if logged_in? %>
+	<% if logged_in? %>
 		<%= render 'shared/errors', obj: @comment %>
 		<%= form_for [@post, @comment] do |f| %>
 			<%= f.text_area :body %>

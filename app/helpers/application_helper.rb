@@ -5,6 +5,6 @@ module ApplicationHelper
 	end
 
 	def display_datetime(dt)
-		dt.strftime("%b %d, %Y %1:%M%P %Z")
+		dt.strftime("%A, %b %d, %Y at %I:%M%P %Z")
 	end
 end

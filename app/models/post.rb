@@ -6,5 +6,19 @@ class Post < ActiveRecord::Base
   has_many :votes, as: :voteable
 
 	validates :title, presence: true
+
+  after_validation :generate_slug
+
+  def total_votes
+    self.votes.where(vote: true).size - self.votes.where(vote: false).size
+  end
 	
+  def generate_slug
+    self.slug = self.title.gsub(/[^0-9a-z]/, "_").downcase
+  end
+
+  def to_param
+    self.slug
+  end
+
 end

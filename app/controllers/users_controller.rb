@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(users_params)
-    if @user_save
+    if @user.save
       flash[:notice] = "You have now registered successfully. Please log in."
       redirect_to root_path
     else

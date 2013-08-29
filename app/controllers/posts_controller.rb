@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-	before_action :set_post, only: [:show, :update, :edit] 
-	before_action :require_user, only: [:new, :create, :edit, :update]
+	before_action :set_post, only: [:show, :update, :edit, :vote] 
+	before_action :require_user, only: [:new, :create, :edit, :update, :vote]
 	before_action :require_creator, only: [:edit, :update]
 
   def index
@@ -40,13 +40,27 @@ class PostsController < ApplicationController
 	  end
 	end
 
+  def vote
+    Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
+
+    respond_to do |format|
+      format.html do
+        flash[:notice] = "Your vote was counted."
+        redirect_to :back
+      end
+
+      format.js
+
+    end
+  end
+
 	private
 	def post_params
 	  params.require(:post).permit(:title, :url)
 	end
 
 	def set_post
-		@post = Post.find(params[:id])
+		@post = Post.find_by(slug: params[:id])
 	end
 
   def require_creator
