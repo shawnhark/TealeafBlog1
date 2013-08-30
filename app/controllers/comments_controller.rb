@@ -14,4 +14,23 @@ class CommentsController < ApplicationController
 				render 'posts/show'
 	  	end
   end
+
+  def vote
+    Vote.create(voteable: @comment, creator: current_user, vote: params[:vote])
+
+    respond_to do |format|
+      format.html do
+        flash[:notice] = "Your vote was counted."
+        redirect_to :back
+      end
+
+      format.js
+
+    end
+
+  private
+  def post_params
+    params.require(:post).permit(:title, :url)
+  end
+  
 end

@@ -10,6 +10,11 @@ class User < ActiveRecord::Base
 
   after_validation :generate_slug
 
+  def admin?
+    self.role == "admin"
+  end
+
+
   def generate_slug
     self.slug = self.username.gsub(" ", "_").downcase
   end
