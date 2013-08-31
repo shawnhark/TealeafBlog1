@@ -13,7 +13,7 @@ class Post < ActiveRecord::Base
 
 	
   def generate_slug
-    self.slug = self.title.gsub(/[^0-9a-z]/, "_").downcase
+    self.slug = self.title.gsub(/[^0-9a-zA-Z]/, "_").downcase
   end
 
   def to_param
