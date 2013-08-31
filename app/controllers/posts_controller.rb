@@ -44,7 +44,8 @@ class PostsController < ApplicationController
 	end
 
   def vote
-    Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
+    @vote = Vote.new(voteable: @post, creator: current_user, vote: params[:vote])
+    @vote.save
 
     respond_to do |format|
       format.html do
@@ -59,7 +60,7 @@ class PostsController < ApplicationController
 
 	private
 	def post_params
-	  params.require(:post).permit(:title, :url)
+	  params.require(:post).permit(:title, :url, :description)
 	end
 
 	def set_post

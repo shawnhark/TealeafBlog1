@@ -25,12 +25,12 @@ class CommentsController < ApplicationController
       end
 
       format.js
-
     end
+  end
 
   private
   def post_params
-    params.require(:post).permit(:title, :url)
+    params.require(:comment).permit(:body)
   end
-  
+
 end

@@ -2,19 +2,31 @@
 
 <ul>
 <% @posts.each do |post| %>
-	<li>
-    (
-    <%= link_to '+',  vote_post_path(post, vote: true), method: 'post', remote: true %>
-    <span id="post_<%=post.id%>_votes"><%= post.total_votes %></span>
-    <%= link_to '-',  vote_post_path(post, vote: false), method: 'post', remote: true %>
-    )
-    <%= link_to post.title, post_path(post) %>
-		<small>
-		[<%=link_to 'link', fix_url(post.url) %>] posted by 
-    <%= link_to post.creator.username %>
-		 on <%= display_datetime(post.created_at)  %>
-		<%= link_to 'edit', edit_post_path(post) %>
-		</small>
-	</li>
+	<div class="container-fluid">
+    
+      <div class="row-fluid">
+        <div class="span2">
+          <div class="well">
+            (
+            <%= link_to '+',  vote_post_path(post, vote: true), method: 'post', remote: true %>
+            <span id="post_<%=post.id%>_votes"><%= post.total_votes %></span>
+            <%= link_to '-',  vote_post_path(post, vote: false), method: 'post', remote: true %>
+            )
+          </div>
+        </div>
+        <div class="span10">
+          <div class="well">
+            <%= link_to post.title, post_path(post) %>
+        		<small>
+        		[<%=link_to 'link', fix_url(post.url) %>] posted by 
+            <%= link_to post.creator.username %>
+        		 on <%= display_datetime(post.created_at) %>
+        		<%= link_to 'edit', edit_post_path(post) %>
+    		    </small>
+          </div>
+        </div>
+      </div>
+  
+	</div>
  <% end %>
 </ul>

@@ -1,11 +1,11 @@
-<ul class="nav navbar-inverse">
+<ul class="nav navbar">
   <li>
     <%= link_to "The FORUM", root_path, :class => 'brand' %>
   </li>
-
+	<li class="divider-vertical"></li>
 	<% if logged_in? %>
 		<li>
-			Welcome, <%= current_user.username %>
+			<p class="navbar-text">Welcome, <%= current_user.username %></p>
 		</li>
 		<li>
 		    <%= link_to 'New Posts', new_post_path %>

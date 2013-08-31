@@ -15,7 +15,11 @@
 	<h5>Comments:</h5>
 	<ol>
 		<% @post.comments.each do |comment| %>
-
+    (
+     <%= link_to '+',  vote_post_comment_path(comment, vote: true), method: 'post', remote: true %>
+     <span id="comment_<%=comment.id%>_votes"><%= comment.total_votes %></span>
+     <%= link_to '-',  vote_post_comment_path(comment, vote: false), method: 'post', remote: true %>
+     )
 
 			<li><%= comment.body %> Comment made by <%= link_to comment.creator.username %> </li>
 	<% end %>

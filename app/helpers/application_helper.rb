@@ -5,6 +5,7 @@ module ApplicationHelper
 	end
 
 	def display_datetime(dt)
-		dt.strftime("%A, %b %d, %Y at %I:%M%P %Z")
+		  dt = dt.in_time_zone(current_user.time_zone) if logged_in?
+      dt.strftime("%A, %b %d, %Y at %I:%M%P %Z")
 	end
 end
