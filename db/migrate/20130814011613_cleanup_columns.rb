@@ -4,8 +4,5 @@ class CleanupColumns < ActiveRecord::Migration
   		t.remove :user_id
   		t.belongs_to :user
   	end
-  	change_table :comments do |t|
-  		t.belongs_to :user, :posts
-  	end
   end
 end
