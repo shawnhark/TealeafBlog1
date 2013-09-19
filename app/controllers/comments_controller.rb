@@ -19,7 +19,7 @@ class CommentsController < ApplicationController
     @post = Post.find_by(slug: params[:post_id])
     @comment = Comment.find(params[:id])
     @vote = Vote.new(voteable: @comment, creator: current_user, vote: params[:vote])
-    @comment.save
+    @vote.save
 
     respond_to do |format|
       format.html do

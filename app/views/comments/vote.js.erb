@@ -1,0 +1,10 @@
+<% if @vote.errors.any? %>
+  $("#messages").html('').slideUp();
+  $("#messages").html("<div class='alert alert-error'><%= @vote.errors.full_messages.join(',')%></div>").slideDown();
+<% else %>
+  $("#comment_<%=@comment.id%>_votes").html("<%=@pcomment.total_votes%>");
+<% end %>
+
+
+
+
