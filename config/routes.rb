@@ -17,7 +17,10 @@ get '/logout', to: 'sessions#destroy'
         post 'vote'
       end
     end
+
 	end
 
-	resources :categories, only: [:new, :create]
+	resources :categories, only: [:new, :create, :index]
+
+  resources :post_categories
 end

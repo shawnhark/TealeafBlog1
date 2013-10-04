@@ -12,11 +12,12 @@ class User < ActiveRecord::Base
 
   def admin?
     self.role == "admin"
+    else self.role = "user"
   end
 
 
   def generate_slug
-    self.slug = self.username.gsub(" ", "_").downcase
+    self.slug = self.username.gsub(/[^0-9a-zA-Z]/, "_").downcase
   end
 
   def to_param

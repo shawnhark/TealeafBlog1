@@ -7,10 +7,9 @@ class Post < ActiveRecord::Base
 	has_many :categories, through: :post_categories
 
 	validates :title, presence: true
+  validates :slug, presence: true, uniqueness: true
 
   after_validation :generate_slug
-
-
 	
   def generate_slug
     self.slug = self.title.gsub(/[^0-9a-zA-Z]/, "_").downcase
@@ -19,5 +18,4 @@ class Post < ActiveRecord::Base
   def to_param
     self.slug
   end
-
 end

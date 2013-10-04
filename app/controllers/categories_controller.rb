@@ -1,5 +1,11 @@
 class CategoriesController < ApplicationController
-	before_action :require_admin
+	before_action :set_category
+	before_action :require_admin, only: [:new, :create, :edit, :update]
+
+
+  def index
+  	@categories = Category.all
+  end
 
 	def new
 		@category = Category.new
@@ -14,4 +20,25 @@ class CategoriesController < ApplicationController
 			render :new
 		end
 	end
+
+	def show
+		@posts = @category.posts
+		@title = @category.name
+	end
+
+	def update
+	end
+
+ 	def edit
+  end
+
+  private
+	def set_category
+		@category = Category.find_by slug: params[:id]
+	end
+
+  def category_params
+    params.require(:category).permit!
+  end
+
 end

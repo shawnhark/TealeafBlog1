@@ -1,4 +1,9 @@
 class UsersController < ApplicationController
+
+  def index
+    @users = User.all
+  end
+
   def new
     @user = User.new
   end
@@ -14,10 +19,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+  end
+
 
 private
   def users_params
-    params.require(:user).permit(:username, :password, :time_zone)
+    params.require(:user).permit(:username, :password, :time_zone, :role)
   end
 
 

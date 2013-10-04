@@ -5,9 +5,11 @@ class PostsController < ApplicationController
 
   def index
   	@posts = Post.all
+    @categories  = Category.all
   end
 
   def show
+    @categories = Category.all
     respond_to do |format|
       format.html { @comment = Comment.new }
       format.json {render json: @post}
@@ -15,12 +17,20 @@ class PostsController < ApplicationController
   end
 
   def new
+    @categories = Category.all
   	@post = Post.new
   end
 
   def create
   	@post = Post.new(post_params)
   	@post.creator = current_user
+
+    params[:post][:categories].each do |category_id|
+      if Category.exists?(category_id)
+        @post.categories.push Category.find(category_id)
+      end
+    end
+
 
 		if @post.save
 			flash[:notice] = "You created a new post!"
@@ -32,6 +42,7 @@ class PostsController < ApplicationController
 	end
   	
  	def edit
+    @categories = Category.all
 	end
 
 	def update

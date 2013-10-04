@@ -1,15 +1,25 @@
 <h3><%= @post.title %></h3>
-<h4>Description: <%= @post.description %></h4>
-<%=link_to "#{@post.url}", fix_url(@post.url) %>
-<br>
+<div class="span12">
+  <div class="well">
+
+<% @post.categories.each do |category| %>
+  <span class="badge"><%= category.name %></span>
+<% end %>
+
+
+    <h4><%= link_to "#{@post.description}", fix_url(@post.url) %></h4>
+    <small>
+    posted by 
+    <%= link_to @post.creator.username %>
+    on <%= display_datetime(@post.created_at) %>
+    </small>
+  </div>
+</div>
+</br>
 
 	<% if logged_in? %>
 		<%= render 'shared/errors', obj: @comment %>
 	<% end %>
-
-
-
-
 
 
 	<h4>Comments:</h4>
@@ -27,14 +37,14 @@
                   <div class="btn-group">
                   <% if logged_in? %>
 
-                    <%= link_to vote_post_comment_path(@post, comment, vote: true), method: 'post', remote: true, class: 'btn btn-small', id: "Comment_#{comment.id}_upvote" do %>
+                    <%= link_to vote_post_comment_path(@post, comment, vote: true), method: 'post', remote: true, class: 'btn btn-success btn-small', id: "Comment_#{comment.id}_upvote" do %>
                     	<i class="icon-circle-arrow-up"></i>
                     <% end %>
-                    <%= link_to vote_post_comment_path(@post, comment, vote: false), method: 'post', remote: true, class: 'btn btn-small', id: "Comment_#{comment.id}_downvote" do %>
+                    <%= link_to vote_post_comment_path(@post, comment, vote: false), method: 'post', remote: true, class: 'btn btn-danger btn-small', id: "Comment_#{comment.id}_downvote" do %>
                     <i class="icon-circle-arrow-down"></i>
                     <% end %>
                   <% else %>
-                    <h5>+/- vote score</h5>
+                    <h5><i class="icon-circle-arrow-up"></i> votes <i class="icon-circle-arrow-down"></i></h5>
                   <% end %>
                 </div>
 
@@ -44,6 +54,8 @@
         </div>
         <div class="span10">
           <div class="well">
+
+            
             <h4><%= comment.body %>
             </h4>
             <small>
@@ -61,9 +73,15 @@
 	</ol>
 
 	<% if logged_in? %>
-		<%= form_for [@post, @comment] do |f| %>
-			<%= f.text_area :body %>
-			</br>
-			<%= f.submit "Create comment", class: 'btn btn-primary' %>
-		<% end %>
+    <h4>Add your comment:</h4>
+  <div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span10 offset2">
+    		<%= form_for [@post, @comment] do |f| %>
+    			<%= f.text_area :body, class: 'input-block-level', placeholder: "comment here..." %>
+    			<%= f.submit "Create comment", class: 'btn btn-large btn-block btn-primary' %>
+    		<% end %>
+        </div>
+    </div>
+  </div>
 	<% end %>
