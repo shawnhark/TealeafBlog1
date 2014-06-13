@@ -1,7 +1,7 @@
     <% if @category.posts.size == 0 %>
-      <h4>Nothing here yet!</h4>
+      <h4>Sorry, there is nothing here yet!</h4>
     <% end %>
 
-      <% @categories.each do |category| %>
-        <li><%= link_to category.name, category %></li>
+      <% @category.posts.each do |posts| %>
+        <%= render 'posts/post', post: post
       <% end %>

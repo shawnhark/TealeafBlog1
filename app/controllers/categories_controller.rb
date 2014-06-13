@@ -22,8 +22,14 @@ class CategoriesController < ApplicationController
 	end
 
 	def show
+    @category = Category.find_by slug: params[:id]
 		@posts = @category.posts
 		@title = @category.name
+
+    respond_to do |format|
+      format.html { @category = Category.new }
+      format.json {render json: @category}
+    end
 	end
 
 	def update

@@ -7,9 +7,6 @@ class Category < ActiveRecord::Base
 
   after_validation :generate_slug
 
-  def generate_slug
-    self.slug = self.name.gsub(/[^0-9a-zA-Z]/, "_").downcase
-  end
 
   def to_param
     self.slug
